@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: bold;
+  color: var(--font-color);
+}
+
+.small {
+  font-size: 30px;
+  height: 64px;
+  width: 64px;
+}
+
+.large {
+  height: 300px;
+  width: 350px;
+  background: var(--main-background);
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.good {
+  background: var(--good-background);
+  border-color: green;
+}
+
+.wrong {
+  background: var(--wrong-background);
+  border-color: orange;
+}
+
+.unknown {
+  background: var(--unknown-background);
+  border-color: var(--border-unknown);
+  color: black;
+}
+
+.notPlayed {
+  border-color: var(--border-unknown);
+}

@@ -1,0 +1,11 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 300px;
+  width: 350px;
+  border-radius: 15px;
+  border: 1px solid grey;
+  color: var(--font-color);
+}

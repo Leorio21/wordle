@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid green;
+  border-radius: 15px;
+  padding: 5px 20px;
+  background: var(--good-background);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.container:focus {
+  outline: unset;
+}
+
+.container:hover {
+  background: var(--wrong-background);
+  border-color: orange;
+}
+.container:active {
+  background: var(--unknown-background);
+  border-color: var(--border-unknown);
+}

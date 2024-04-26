@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.pointColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 5%;
+  height: 100%;
+  color: var(--font-color);
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 64px;
+}
+
+.remainingTry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--font-color);
+}
+
+.linesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 28%;
+  height: 100%;
+}
+
+.good {
+  color: green;
+}
+
+.alert {
+  color: orange;
+}
+
+.warning {
+  color: red;
+}
