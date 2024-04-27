@@ -9,10 +9,10 @@
   color: #ffffff;
   font-weight: bold;
 }
-
+/* 
 .container:focus {
   outline: unset;
-}
+} */
 
 .container:hover {
   background: var(--wrong-background);
