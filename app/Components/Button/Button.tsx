@@ -8,7 +8,7 @@ function Button({ children, ...props }: ButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => buttonRef.current?.focus(), 1000);
+    setTimeout(() => buttonRef.current?.focus(), 100);
   }, [buttonRef]);
 
   return (
