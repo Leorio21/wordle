@@ -8,13 +8,13 @@ function Button({ children, ...props }: ButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    buttonRef.current?.focus();
+    setTimeout(() => buttonRef.current?.focus(), 1000);
   }, [buttonRef]);
 
   return (
     <div
       ref={buttonRef}
-      tabIndex={1}
+      tabIndex={-1}
       className={classNames(styles.container)}
       {...props}
     >
