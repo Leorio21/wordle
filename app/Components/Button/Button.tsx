@@ -14,7 +14,7 @@ function Button({ children, ...props }: ButtonProps) {
   return (
     <div
       ref={buttonRef}
-      tabIndex={-1}
+      tabIndex={1}
       className={classNames(styles.container)}
       {...props}
     >
