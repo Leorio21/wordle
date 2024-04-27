@@ -32,6 +32,8 @@ type WordleAction = {
   verifWord: () => void;
 };
 
+const MAXTRY = 6;
+
 const initialState: WordleState = {
   displayEndGameMessage: false,
   errorMessage: {
@@ -69,63 +71,14 @@ const initialState: WordleState = {
     Z: "notPlayed",
   },
   letterState: { notPlayed: 0, unknown: 1, wrong: 2, good: 3 },
-  history: ["", "", "", "", "", ""],
-  historyColor: [
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-    [
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-      "notPlayed",
-    ],
-  ],
-  remainingTry: 6,
+  history: new Array(MAXTRY).fill(""),
+  historyColor: new Array(MAXTRY).fill(new Array(5).fill("notPlayed")),
+  remainingTry: MAXTRY,
   word: "",
 };
 
 const initialScoreState = {
-  wordFind: [0, 0, 0, 0, 0, 0],
+  wordFind: new Array(MAXTRY).fill(0),
   score: 0,
 };
 
@@ -137,10 +90,10 @@ export const useWordleStore = create<
   addLetterToWord: (letter) =>
     set((state) => {
       const newHistory = [...state.history];
-      if (newHistory[6 - state.remainingTry].length >= 5) {
+      if (newHistory[MAXTRY - state.remainingTry].length >= 5) {
         return {};
       }
-      newHistory[6 - state.remainingTry] += letter.toUpperCase();
+      newHistory[MAXTRY - state.remainingTry] += letter.toUpperCase();
       return { history: newHistory };
     }),
   changeEndGameMessageState: (newState) =>
@@ -155,7 +108,7 @@ export const useWordleStore = create<
   deleteLastLetter: () =>
     set((state) => {
       const newHistory = [...state.history];
-      if (newHistory[6 - state.remainingTry].length <= 0) {
+      if (newHistory[MAXTRY - state.remainingTry].length <= 0) {
         return {
           errorMessage: {
             display: true,
@@ -163,8 +116,8 @@ export const useWordleStore = create<
           },
         };
       }
-      newHistory[6 - state.remainingTry] = newHistory[
-        6 - state.remainingTry
+      newHistory[MAXTRY - state.remainingTry] = newHistory[
+        MAXTRY - state.remainingTry
       ].slice(0, -1);
       return { history: newHistory };
     }),
@@ -177,7 +130,7 @@ export const useWordleStore = create<
     }),
   verifWord: () =>
     set((state) => {
-      if (state.history[6 - state.remainingTry].length < 5) {
+      if (state.history[MAXTRY - state.remainingTry].length < 5) {
         return {
           errorMessage: {
             display: true,
@@ -185,11 +138,11 @@ export const useWordleStore = create<
           },
         };
       }
-      if (!wordsData.includes(state.history[6 - state.remainingTry])) {
+      if (!wordsData.includes(state.history[MAXTRY - state.remainingTry])) {
         return {
           errorMessage: {
             display: true,
-            message: "Mot incorrect",
+            message: "Le mot proposé est invalide",
           },
         };
       }
@@ -199,7 +152,7 @@ export const useWordleStore = create<
       let gameState: GameState = state.gameState;
       const historyColor = [...state.historyColor];
       const secretWord = state.word.toUpperCase();
-      const proposition = state.history[6 - state.remainingTry];
+      const proposition = state.history[MAXTRY - state.remainingTry];
       const controlLetter = secretWord.split("");
       const propositionColor: LetterColor[] = [
         "notPlayed",
@@ -228,11 +181,7 @@ export const useWordleStore = create<
               ? "wrong"
               : lettersColor[proposition[i]];
           controlLetter[controlLetter.indexOf(proposition[i])] = "_";
-        }
-      }
-
-      for (let i = 0; i < 5; i++) {
-        if (propositionColor[i] === "notPlayed") {
+        } else {
           propositionColor[i] = "unknown";
           lettersColor[proposition[i]] =
             lettersColor[proposition[i]] === "notPlayed"
@@ -243,12 +192,12 @@ export const useWordleStore = create<
 
       if (proposition === state.word.toUpperCase()) {
         gameState = GameState.WON;
-        wordFind[6 - state.remainingTry] += 1;
+        wordFind[MAXTRY - state.remainingTry] += 1;
         score += state.remainingTry * 10;
       } else if (state.remainingTry - 1 === 0) {
         gameState = GameState.LOST;
       }
-      historyColor[6 - state.remainingTry] = [...propositionColor];
+      historyColor[MAXTRY - state.remainingTry] = [...propositionColor];
 
       return {
         score: score,

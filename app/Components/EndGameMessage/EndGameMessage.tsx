@@ -13,6 +13,7 @@ function EndGameMessage() {
   const replay = useWordleStore((state) => state.replay);
   const resetScore = useWordleStore((state) => state.resetScore);
   const selectWord = useWordleStore((state) => state.selectWord);
+  const word = useWordleStore((state) => state.word);
 
   const { width, height } = useWindowSize();
 
@@ -69,7 +70,7 @@ function EndGameMessage() {
             height={64}
             unoptimized
           />
-          Partie terminée
+          Le mot à trouver était : {word}
           <Button onClick={resetGame} onKeyDown={resetGame}>
             Rejouer
           </Button>

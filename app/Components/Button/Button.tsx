@@ -9,7 +9,7 @@ function Button({ children, ...props }: ButtonProps) {
 
   useEffect(() => {
     buttonRef.current?.focus();
-  }, []);
+  }, [buttonRef]);
 
   return (
     <div
